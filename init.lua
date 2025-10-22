@@ -439,6 +439,12 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
+      vim.keymap.set('n', '<leader>sa', function()
+        builtin.find_files {
+          hidden = true,
+        }
+      end, { desc = '[S]earch [a]ll files' })
+
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
@@ -979,16 +985,39 @@ require('lazy').setup({
     dependencies = { 'MunifTanjim/nui.nvim' },
     opts = {},
   },
+  -- {
+  --   'stevearc/overseer.nvim',
+  --   opts = { strategy = { 'toggleterm' }, task_list = { direction = 'bottom' } },
+  -- },
   {
-    'stevearc/overseer.nvim',
-    opts = {},
+    'jedrzejboczar/toggletasks.nvim',
+    config = function()
+      pcall(require('telescope').load_extension, 'toggletasks')
+      vim.keymap.set('n', '<space>p', require('telescope').extensions.toggletasks.spawn, { desc = 'toggletasks: spawn' })
+    end,
   },
   {
     'mrcjkb/rustaceanvim',
     version = '^6', -- Recommended
     lazy = false, -- This plugin is already lazy
   },
-  { 'Civitasv/cmake-tools.nvim', opts = {} },
+  {
+    'Civitasv/cmake-tools.nvim',
+    opts = {
+      cmake_executor = {
+        name = 'toggleterm',
+        opts = { direction = 'horizontal' },
+      },
+      cmake_runner = { name = 'toggleterm', opts = { direction = 'horizontal' } },
+    },
+  },
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    opts = {--[[ things you want to change go here]]
+    },
+  },
+
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
