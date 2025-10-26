@@ -26,6 +26,7 @@ vim.o.confirm = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
+vim.o.shell = "powershell.exe" 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
@@ -109,10 +110,21 @@ require('lazy').setup ({
     },
   },
 },
-{ "EdenEast/nightfox.nvim" },
+{
+    "EdenEast/nightfox.nvim",
+    priority = 1000,
+    config = function()
+        vim.cmd("colorscheme nightfox")
+    end,
+},
 {
     'nvim-lualine/lualine.nvim',
+    opts = {},
     dependencies = { 'nvim-tree/nvim-web-devicons' }
+},
+{
+    "nvim-treesitter/nvim-treesitter", 
+    branch = 'master', lazy = false, build = ":TSUpdate",  
 },
 {
   "folke/snacks.nvim",
@@ -236,7 +248,6 @@ require('lazy').setup ({
     }
   },
   init = function()
-    vim.cmd("colorscheme nightfox")
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()
