@@ -282,6 +282,11 @@ require('lazy').setup ({
         Snacks.toggle.dim():map("<leader>uD")
       end,
     })
+    require("nvim-treesitter.configs").setup({
+        highlight = {
+            enable = true
+        }
+    })
   end,
 }
 })
