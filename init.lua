@@ -983,7 +983,9 @@ require('lazy').setup({
     'm4xshen/hardtime.nvim',
     lazy = false,
     dependencies = { 'MunifTanjim/nui.nvim' },
-    opts = {},
+    opts = {
+      enabled = false,
+    },
   },
   -- {
   --   'stevearc/overseer.nvim',
@@ -1009,12 +1011,36 @@ require('lazy').setup({
         opts = { direction = 'horizontal' },
       },
       cmake_runner = { name = 'toggleterm', opts = { direction = 'horizontal' } },
+      cmake_notifications = {
+        executor = { enabled = false },
+        runner = { enabled = false },
+      },
     },
   },
   {
     'akinsho/toggleterm.nvim',
     version = '*',
     opts = {--[[ things you want to change go here]]
+    },
+  },
+  {
+    'kdheepak/lazygit.nvim',
+    lazy = true,
+    cmd = {
+      'LazyGit',
+      'LazyGitConfig',
+      'LazyGitCurrentFile',
+      'LazyGitFilter',
+      'LazyGitFilterCurrentFile',
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    keys = {
+      { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
     },
   },
 
@@ -1030,7 +1056,7 @@ require('lazy').setup({
   require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
